@@ -5,4 +5,14 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME,
   password: process.env.DB_PASS,
 });
+
+pool.getConnection((err, connection) => {
+  if (err) {
+    console.error("❌ MySQL Connection Failed:", err.message);
+  } else {
+    console.log("✅ MySQL Connected Successfully!");
+    connection.release();
+  }
+});
+
 module.exports = pool.promise();
